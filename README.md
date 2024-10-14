@@ -68,3 +68,15 @@ We will:
 1. Clone the repository.
    ```bash
    git clone <repo-url>
+   ```
+
+2.	Install the required dependencies.
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3.	Preprocess the dataset and fine-tune the Hugging Face model.
+4.	Set up the web app using Flask or FastAPI.
+5.	Deploy the model locally or use Docker for cloud deployment.
+
+This project aims to demonstrate your ability to build and deploy an end-to-end machine learning pipeline using industry-relevant technologies and frameworks.
