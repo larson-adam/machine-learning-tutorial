@@ -163,7 +163,7 @@ npm run serve
 
 The final result should look something like this:
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/f4e682b78d48b67ecf4580255c29c032653321d3/Movie%20Review%20Screenshot.png
+![alt text](https://github.com/larson-adam/machine-learning-tutorial/blob/main/Movie%20Review%20Screenshot.png)
 
 ## Conclusion
 
