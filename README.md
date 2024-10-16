@@ -9,6 +9,7 @@ We are fine-tuning a **BERT** model, pre-trained by Google, to classify movie re
 ## Installation and Setup
 
 ### 1. Clone the Repository
+
 ```bash
 git clone <repository_url>
 ```

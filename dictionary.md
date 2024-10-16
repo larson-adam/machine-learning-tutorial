@@ -10,6 +10,8 @@
 - **Trainer**: A class provided by Hugging Face that abstracts much of the training process, including loss calculation, backpropagation, and evaluation.
 - **Accelerate**: A Hugging Face library that optimizes model training by distributing the workload across multiple hardware devices.
 - **PyTorch**: A deep learning framework that provides dynamic computation, allowing for more flexibility during training.
+- **BERT**: A powerful NLP model that understands text and its context.
+- **Pre-trained Model**: A model that has already been trained on large amounts of data and can be fine-tuned for specific tasks.
 
 ### TrainingArgument Parameters Explained:
 
