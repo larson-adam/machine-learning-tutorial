@@ -157,26 +157,10 @@ To make it easier to deploy the app, you can package it into a Docker container.
 1. Create a Dockerfile
 
 ```Dockerfile
-# Use the official Python image
-FROM python:3.8-slim
-
-# Set the working directory
-WORKDIR /app
-
-# Copy the app files to the container
-COPY . /app
-
-# Install required Python packages
-RUN pip install -r requirements.txt
-
-# Expose the port
-EXPOSE 5000
-
-# Run the app
-CMD ["python", "app.py"]
+https://github.com/larson-adam/machine-learning-tutorial/blob/6d7d79951bb2333d21849c3a94a6b397cbc7c5ad/Dockerfile#L1-L17
 ```
 
-> The API will run on http://127.0.0.1:5000. You can test the API by sending a POST request with some text to the /predict endpoint.
+> The API will run on http://127.0.0.1:5000. You can test the API by sending a POST request with some text to the `/predict` endpoint.
 
 2. Build the Dockerimage:
 
