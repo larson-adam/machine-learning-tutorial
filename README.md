@@ -116,7 +116,7 @@ curl -X POST http://127.0.0.1:8000/predict \
   -d '{"text": "I really enjoyed this movie!"}'
 ```
 
-You should get a response that looks like:
+You should get a response that looks like this:
 
 ```JSON
 {
