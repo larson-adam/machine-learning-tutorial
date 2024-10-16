@@ -27,7 +27,7 @@
 ### Training Process Output Explained:
 
 #### Examample Output:
-```json
+```txt
 {'loss': 0.4277, 'grad_norm': 4.493, 'learning_rate': 4.73e-05, 'epoch': 0.16}
 ```
 
