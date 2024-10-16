@@ -57,10 +57,10 @@ Once the model is fine-tuned, we can use it to make predictions on new movie rev
 
 Here’s how you can load the fine-tuned model and make predictions:
 
+```python
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 
-```python
 # Load the fine-tuned model and tokenizer
 model_path = "./fine-tuned-bert"
 tokenizer = AutoTokenizer.from_pretrained(model_path)

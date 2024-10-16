@@ -50,12 +50,57 @@ python3 fine_tune_bert.py
 
 Once the model is fine-tuned, we can use it to make predictions on new movie reviews.
 
-### 1. Modify the Flask API to Include Confidence Score
+### 1. Create a New Python File (run_inference.py)
 
-Update the app.py file to return the confidence score along with the prediction. The softmax function is used to convert logits into probabilities, and the confidence score is the probability associated with the predicted class.
+Here’s how you can load the fine-tuned model and make predictions:
 
-Here’s the updated version of app.py:
+```python
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+import torch
 
+# Load the fine-tuned model and tokenizer
+model_path = "./fine-tuned-bert"
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+model = AutoModelForSequenceClassification.from_pretrained(model_path)
+
+# Put the model in evaluation mode
+model.eval()
+
+# Sample text for prediction (you can change this to any review text)
+sample_text = "This movie was average. The acting and the plot was solid."
+
+# Tokenize the text and prepare it for the model
+inputs = tokenizer(sample_text, return_tensors="pt", truncation=True, padding=True, max_length=512)
+
+# Run the model to get predictions
+with torch.no_grad():
+    outputs = model(**inputs)
+    logits = outputs.logits
+
+# Get the predicted class (0 = negative, 1 = positive)
+predicted_class = torch.argmax(logits, dim=1).item()
+
+# Output the result
+if predicted_class == 1:
+    print("Positive review")
+else:
+    print("Negative review")
+```
+
+### 2. Run the Inference Script
+
+```bash
+python3 run_inference.py
+```
+> This will output whether the movie review is classified as positive or negative.
+
+## Create Flask API
+
+Next, we will create a Flask API that accepts movie reviews via HTTP requests and returns predictions.
+
+### Create a Flask App (app.py)
+
+```python
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
@@ -103,22 +148,50 @@ def predict():
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
+```
 
-2. Rebuild the Docker Image
+### Dockerize Flask API
 
-After modifying the app.py to include the confidence score, rebuild the Docker image:
+To make it easier to deploy the app, you can package it into a Docker container.
 
+1. Create a Dockerfile
+
+```Dockerfile
+# Use the official Python image
+FROM python:3.8-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the app files to the container
+COPY . /app
+
+# Install required Python packages
+RUN pip install -r requirements.txt
+
+# Expose the port
+EXPOSE 5000
+
+# Run the app
+CMD ["python", "app.py"]
+```
+
+> The API will run on http://127.0.0.1:5000. You can test the API by sending a POST request with some text to the /predict endpoint.
+
+2. Build the Dockerimage:
+
+```bash
 docker build -t bert-sentiment-app .
+```
 
 3. Run the Docker Container with a Safe Port
 
-To avoid the ERR_UNSAFE_PORT issue when accessing the app from the Vue.js frontend, use a safe port like 8000 for Docker:
-
+```bash
 docker run -p 8000:5000 bert-sentiment-app
+```
+> You can try using `5000:5000`, but I had to map port 8000 on my local machine to port 5000 inside the Docker container to bypass an error: `ERR_UNSAFE_PORT`
 
-This command maps port 8000 on your local machine to port 5000 inside the Docker container.
-
-Creating a Vue.js Frontend
+### Creating a Vue.js Frontend
 
 To make the project more interactive, we’ll build a Vue.js frontend to interface with the Flask API.
 
@@ -126,17 +199,22 @@ To make the project more interactive, we’ll build a Vue.js frontend to interfa
 
 If you don’t have Vue installed, you can set up a new project using Vue CLI:
 
+```bash
 npm install -g @vue/cli
 vue create sentiment-app
+```
 
 Navigate into your project folder:
 
+```bash
 cd sentiment-app
+```
 
 2. Modify the Vue Component
 
-Open the src/components/HelloWorld.vue file and replace its contents with the following code to create the sentiment analysis form. This will now display the confidence score returned by the Flask API.
+Open the `src/components/HelloWorld.vue` file and replace its contents with the following code to create the sentiment analysis form. This will now display the confidence score returned by the Flask API.
 
+```html
 <template>
   <div class="sentiment-app">
     <h1>Movie Review Sentiment Analysis</h1>
@@ -180,25 +258,35 @@ export default {
 };
 </script>
 
+<style scoped>
+.sentiment-app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+textarea {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 10px;
+}
+button {
+  padding: 10px 20px;
+}
+</style>
+```
+
 3. Run the Vue.js App
 
 Now, run the Vue app:
 
+```bash
 npm run serve
+```
 
 You can access the app in your browser at http://localhost:8080. The Vue.js frontend will now display the sentiment prediction and the confidence score.
 
-Conclusion
+## Conclusion
 
 In this project, we’ve fine-tuned a pre-trained BERT model using Hugging Face, built a Flask API to serve predictions, and created a Vue.js frontend for user interaction. The Flask API now includes a confidence score for each prediction, which is displayed in the Vue.js frontend. This setup provides a complete end-to-end machine learning pipeline, from training to deployment.
 
 You can further improve this project by adding more styling, deploying it to a cloud platform, or optimizing the inference process.
-
----
-
-### Summary of Changes:
-- Added instructions for calculating and returning the **confidence score** from the Flask API using **softmax**.
-- Included steps to update the Vue.js frontend to display the confidence score.
-- Explained how to resolve the **ERR_UNSAFE_PORT** issue by using a safe port (e.g., **8000**).
-  
-Let me know if you need any more adjustments or further explanations!
