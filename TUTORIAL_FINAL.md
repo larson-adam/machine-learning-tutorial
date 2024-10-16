@@ -1,7 +1,3 @@
-Absolutely! Here’s the updated version of your README.md with instructions for adding the confidence score to the API and handling the port changes.
-
-
-
 # End-to-End Machine Learning Pipeline with Hugging Face and Web App
 
 This project demonstrates how to fine-tune a pre-trained **BERT** model for sentiment analysis using the Hugging Face library and deploy it as a web app. The tutorial covers key machine learning concepts and also includes instructions on creating a **Vue.js** frontend that interacts with the Flask API.
@@ -15,34 +11,46 @@ We are fine-tuning a **BERT** model, pre-trained by Google, to classify movie re
 ### 1. Clone the Repository
 ```bash
 git clone <repository_url>
+```
 
-2. Install Python Dependencies
+### 2. Install Python Dependencies
 
 Make sure you have the required libraries for training and running the API. You can install them using pip:
 
-pip install transformers datasets torch accelerate flask flask-cors
+```bash
+pip install -r requirements.txt
+```
 
-3. Set Up Python Virtual Environment (Optional)
+### 3. Set Up Python Virtual Environment (Optional)
 
 It’s recommended to use a virtual environment for Python dependencies:
 
+**MacOS**
+```bash
 python3 -m venv venv
 source venv/bin/activate   # On macOS/Linux
-venv\Scripts\activate      # On Windows
+```
 
-4. Run the Fine-Tuning Script
+**Windows**
+```bash
+python3 -m venv venv
+venv\Scripts\activate
+```
+
+### 4. Run the Fine-Tuning Script
 
 Execute the fine_tune_bert.py script to fine-tune the BERT model on the IMDb dataset:
 
+```bash
 python3 fine_tune_bert.py
+```
+> This will generate files like pytorch_model.bin, config.json, and tokenizer files in the `./fine-tuned-bert/` directory.
 
-This will generate files like pytorch_model.bin, config.json, and tokenizer files in the ./fine-tuned-bert/ directory.
-
-Using the Fine-Tuned Model for Inference
+## Using the Fine-Tuned Model for Inference
 
 Once the model is fine-tuned, we can use it to make predictions on new movie reviews.
 
-1. Modify the Flask API to Include Confidence Score
+### 1. Modify the Flask API to Include Confidence Score
 
 Update the app.py file to return the confidence score along with the prediction. The softmax function is used to convert logits into probabilities, and the confidence score is the probability associated with the predicted class.
 
