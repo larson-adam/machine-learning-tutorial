@@ -10,19 +10,17 @@ We are fine-tuning a **BERT** model, pre-trained by Google, to classify movie re
 
 ### 1. Clone the Repository
 
+**SSH**
 ```bash
-git clone <repository_url>
+git clone git@github.com:larson-adam/machine-learning-tutorial.git
 ```
 
-### 2. Install Python Dependencies
-
-Make sure you have the required libraries for training and running the API. You can install them using pip:
-
+**HTTPS**
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/larson-adam/machine-learning-tutorial.git
 ```
 
-### 3. Set Up Python Virtual Environment (Optional)
+### 2. Set Up Python Virtual Environment
 
 It’s recommended to use a virtual environment for Python dependencies:
 
@@ -36,6 +34,14 @@ source venv/bin/activate   # On macOS/Linux
 ```bash
 python3 -m venv venv
 venv\Scripts\activate
+```
+
+### 3. Install Python Dependencies
+
+Make sure you have the required libraries for training and running the API. You can install them using pip:
+
+```bash
+pip install -r requirements.txt
 ```
 
 ### 4. Run the Fine-Tuning Script
