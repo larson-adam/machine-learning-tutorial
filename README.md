@@ -176,3 +176,7 @@ You can further improve this project by adding more styling, deploying it to a c
 I've compiled a list of helpful reference to explain some of the terminology you'll come across in this tutorial.
 
 [Dictionary.md](https://github.com/larson-adam/machine-learning-tutorial/blob/main/dictionary.md)
+
+## Fine-Tuning In-Depth
+
+A more indepth explanation of the fine-tunning process can be found here: [fine-tuning.md](https://github.com/larson-adam/machine-learning-tutorial/blob/main/dictionary.md) 
