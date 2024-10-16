@@ -134,3 +134,9 @@ npm run serve
 In this project, we’ve fine-tuned a pre-trained BERT model using Hugging Face, built a Flask API to serve predictions, and created a Vue.js frontend for user interaction. The Flask API now includes a confidence score for each prediction, which is displayed in the Vue.js frontend. This setup provides a complete end-to-end machine learning pipeline, from training to deployment.
 
 You can further improve this project by adding more styling, deploying it to a cloud platform, or optimizing the inference process.
+
+## Dictionary and Context
+
+I've compiled a list of helpful reference to explain some of the terminology you'll come across in this tutorial.
+
+[Dictionary.md](https://github.com/larson-adam/machine-learning-tutorial/blob/main/dictionary.md)
