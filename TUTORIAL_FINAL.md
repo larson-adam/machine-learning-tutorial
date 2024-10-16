@@ -108,7 +108,7 @@ To make it easier to deploy the app, you can package it into a Docker container.
 
 1. Create a Dockerfile
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/6d7d79951bb2333d21849c3a94a6b397cbc7c5ad/Dockerfile#L1-L17
+https://github.com/larson-adam/machine-learning-tutorial/blob/main/Dockerfile#L1-L17
 
 > The API will run on http://127.0.0.1:5000. You can test the API by sending a POST request with some text to the `/predict` endpoint.
 
