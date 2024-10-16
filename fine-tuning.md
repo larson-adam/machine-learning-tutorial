@@ -7,17 +7,21 @@ The dataset for sentiment analysis typically consists of key-value pairs where:
 
 For example, if you’re using the IMDb dataset, each data point would look something like this:
 
+```JSON
 {
   "text": "I absolutely loved this movie! The acting was superb and the plot was gripping.",
   "label": "positive"
 }
+```
 
 Or:
 
+```JSON
 {
   "text": "This movie was terrible. The plot made no sense and the acting was horrible.",
   "label": "negative"
 }
+```
 
 Structure of the IMDb Dataset:
 

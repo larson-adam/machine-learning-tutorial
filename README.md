@@ -64,7 +64,7 @@ Once the model is fine-tuned, we can use it to make predictions on new movie rev
 
 Here’s how you can load the fine-tuned model and make predictions:
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/run_inference.py#L1-L30
+https://github.com/larson-adam/machine-learning-tutorial/blob/7b2b5b8f1cf4d58997b843583b4748c0488f2ac1/run_inference.py#L1-L30
 
 ### 2. Run the Inference Script
 
@@ -81,7 +81,7 @@ Next, we will create a Flask API that accepts movie reviews via HTTP requests an
 
 Create a file called `app.py` and copy the contents below to it.
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/app.py#L1-L47
+https://github.com/larson-adam/machine-learning-tutorial/blob/7b2b5b8f1cf4d58997b843583b4748c0488f2ac1/app.py#L1-L47
 
 ### Dockerizing the Flask API
 
@@ -89,7 +89,7 @@ To make it easier to deploy the app, you can package it into a Docker container.
 
 #### 1. Create a Dockerfile
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/Dockerfile#L1-L17
+https://github.com/larson-adam/machine-learning-tutorial/blob/7b2b5b8f1cf4d58997b843583b4748c0488f2ac1/Dockerfile#L1-L17
 
 > The API will run on http://127.0.0.1:5000. You can test the API by sending a POST request with some text to the `/predict` endpoint.
 
@@ -149,7 +149,7 @@ cd sentiment-app
 
 Open the `src/components/HelloWorld.vue` file and replace its contents with the following code to create the sentiment analysis form. This will now display the confidence score returned by the Flask API.
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/sentiment-app/src/components/HelloWorld.vue#L1-L58
+https://github.com/larson-adam/machine-learning-tutorial/blob/7b2b5b8f1cf4d58997b843583b4748c0488f2ac1/sentiment-app/src/components/HelloWorld.vue#L1-L58
 
 ### 3. Run the Vue.js App
 
@@ -175,8 +175,10 @@ You can further improve this project by adding more styling, deploying it to a c
 
 I've compiled a list of helpful reference to explain some of the terminology you'll come across in this tutorial.
 
-[Dictionary.md](https://github.com/larson-adam/machine-learning-tutorial/blob/main/dictionary.md)
+[dictionary.md](https://github.com/larson-adam/machine-learning-tutorial/blob/main/dictionary.md)
 
 ## Fine-Tuning In-Depth
 
-A more indepth explanation of the fine-tunning process can be found here: [fine-tuning.md](https://github.com/larson-adam/machine-learning-tutorial/blob/main/dictionary.md) 
+For a more indepth explanation of the fine-tunning process checkout the explanationl:
+
+[fine-tuning.md](https://github.com/larson-adam/machine-learning-tutorial/blob/main/fine-tuning.md) 
