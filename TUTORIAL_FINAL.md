@@ -54,7 +54,7 @@ Once the model is fine-tuned, we can use it to make predictions on new movie rev
 
 Here’s how you can load the fine-tuned model and make predictions:
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/run_inference.py
+https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/run_inference.py#L1-L30
 
 ### 2. Run the Inference Script
 
@@ -69,7 +69,7 @@ Next, we will create a Flask API that accepts movie reviews via HTTP requests an
 
 ### Create a Flask App (app.py)
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/app.py#L1-47
+https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/app.py#L1-L47
 
 ### Dockerize Flask API
 
@@ -117,7 +117,7 @@ cd sentiment-app
 
 Open the `src/components/HelloWorld.vue` file and replace its contents with the following code to create the sentiment analysis form. This will now display the confidence score returned by the Flask API.
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/sentiment-app/src/components/HelloWorld.vue#L1-58
+https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/sentiment-app/src/components/HelloWorld.vue#L1-L58
 
 ### 3. Run the Vue.js App
 
@@ -127,7 +127,7 @@ Now, run the Vue app:
 npm run serve
 ```
 
-You can access the app in your browser at http://localhost:8080. The Vue.js frontend will now display the sentiment prediction and the confidence score.
+> You can access the app in your browser at http://localhost:8080. The Vue.js frontend will now display the sentiment prediction and the confidence score.
 
 ## Conclusion
 
