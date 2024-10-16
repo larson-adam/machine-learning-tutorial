@@ -1,82 +1,136 @@
 # End-to-End Machine Learning Pipeline with Hugging Face and Web App
 
-This project is an **End-to-End Machine Learning Pipeline** that uses a Hugging Face model for NLP tasks (like text classification or named entity recognition). It includes data preprocessing, model training (or fine-tuning), evaluation, and deployment to a web app. The project also explores the use of Docker for containerization and cloud deployment.
+This project demonstrates how to fine-tune a pre-trained **BERT** model for sentiment analysis using the Hugging Face library and deploy it as a web app. The tutorial covers key machine learning concepts and also includes instructions on creating a **Vue.js** frontend that interacts with the Flask API.
 
 ## Project Overview
-We will:
-- Preprocess data for training.
-- Fine-tune a pre-trained Hugging Face model on a specific dataset.
-- Build a web app with Flask/FastAPI to deploy the model and serve predictions.
-- Deploy the app locally or on the cloud using Docker.
 
-## Project Steps
+We are fine-tuning a **BERT** model, pre-trained by Google, to classify movie reviews from the **IMDb dataset** as positive or negative. After fine-tuning, we will create a simple API using Flask and a user interface with Vue.js. Additionally, we will return a **confidence score** for each prediction, indicating how certain the model is about the prediction.
 
-### Day 1 (Beginner to Intermediate)
+## Installation and Setup
 
-#### Morning
-1. **Set Up Environment**
-   - Install required libraries: `Transformers`, `scikit-learn`, `Flask` (or FastAPI).
-   - Set up a Hugging Face account and explore available pre-trained models.
-   
-2. **Data Preprocessing**
-   - Choose a dataset (IMDb reviews or a dataset from Hugging Face's library).
-   - Clean the data: tokenize, remove unnecessary characters, etc.
-   - Split the data into training and test sets.
+### 1. Clone the Repository
+```bash
+git clone <repository_url>
+```
 
-#### Afternoon
-3. **Fine-Tune a Pre-Trained Hugging Face Model**
-   - Select a model such as BERT or DistilBERT from Hugging Face.
-   - Fine-tune the model on the dataset using Hugging Face’s `Trainer` API.
-   - Evaluate the model's performance (accuracy, F1 score, etc.).
-   - Save the fine-tuned model.
+### 2. Install Python Dependencies
 
-### Day 2 (Intermediate to Advanced)
+Make sure you have the required libraries for training and running the API. You can install them using pip:
 
-#### Morning
-4. **Model Deployment**
-   - Create a web API using Flask (or FastAPI) to serve the fine-tuned model.
-   - Write an endpoint to accept text input and return predictions (classification, sentiment, etc.).
-   - Build a basic front-end interface for users to interact with the web app (HTML/CSS or React).
+```bash
+pip install -r requirements.txt
+```
 
-#### Afternoon
-5. **Deploy the Web App**
-   - Containerize the app using **Docker** to ensure portability.
-   - Deploy locally or to the cloud (AWS, Heroku, etc.).
+### 3. Set Up Python Virtual Environment (Optional)
 
-6. **Bonus Features**
-   - Add explainability to the app using SHAP or LIME to show why the model predicted a certain result.
-   - Include additional features like confidence scores and performance metrics on new data.
+It’s recommended to use a virtual environment for Python dependencies:
 
-## Technologies Used
-- **Hugging Face Transformers**: For fine-tuning the NLP model.
-- **scikit-learn**: For data preprocessing and splitting.
-- **Flask/FastAPI**: For building the API and serving the model.
-- **Docker**: For containerizing the web app.
-- **HTML/CSS/React**: For building a simple front-end interface.
-- **AWS/Heroku**: For deploying the app (optional).
+**MacOS**
+```bash
+python3 -m venv venv
+source venv/bin/activate   # On macOS/Linux
+```
 
-## Buzzwords
-- **End-to-End Machine Learning Pipeline**
-- **Hugging Face Transformers**
-- **Text Classification/Sentiment Analysis**
-- **Model Deployment (Flask/FastAPI)**
-- **Docker**
-- **Cloud Deployment**
+**Windows**
+```bash
+python3 -m venv venv
+venv\Scripts\activate
+```
 
-## Setup Instructions
+### 4. Run the Fine-Tuning Script
 
-1. Clone the repository.
-   ```bash
-   git clone <repo-url>
-   ```
+Execute the fine_tune_bert.py script to fine-tune the BERT model on the IMDb dataset:
 
-2.	Install the required dependencies.
-    ```bash
-    pip install -r requirements.txt
-    ```
+```bash
+python3 fine_tune_bert.py
+```
+> This will generate files like pytorch_model.bin, config.json, and tokenizer files in the `./fine-tuned-bert/` directory.
 
-3.	Preprocess the dataset and fine-tune the Hugging Face model.
-4.	Set up the web app using Flask or FastAPI.
-5.	Deploy the model locally or use Docker for cloud deployment.
+## Using the Fine-Tuned Model for Inference
 
-This project aims to demonstrate your ability to build and deploy an end-to-end machine learning pipeline using industry-relevant technologies and frameworks.
+Once the model is fine-tuned, we can use it to make predictions on new movie reviews.
+
+### 1. Create a New Python File (run_inference.py)
+
+Here’s how you can load the fine-tuned model and make predictions:
+
+https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/run_inference.py#L1-L30
+
+### 2. Run the Inference Script
+
+```bash
+python3 run_inference.py
+```
+> This will output whether the movie review is classified as positive or negative.
+
+## Create Flask API
+
+Next, we will create a Flask API that accepts movie reviews via HTTP requests and returns predictions.
+
+### Create a Flask App (app.py)
+
+https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/app.py#L1-L47
+
+### Dockerize Flask API
+
+To make it easier to deploy the app, you can package it into a Docker container.
+
+1. Create a Dockerfile
+
+https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/Dockerfile#L1-L17
+
+> The API will run on http://127.0.0.1:5000. You can test the API by sending a POST request with some text to the `/predict` endpoint.
+
+2. Build the Dockerimage:
+
+```bash
+docker build -t bert-sentiment-app .
+```
+
+3. Run the Docker Container with a Safe Port
+
+```bash
+docker run -p 8000:5000 bert-sentiment-app
+```
+> You can try using `5000:5000`, but I had to map port 8000 on my local machine to port 5000 inside the Docker container to bypass an error: `ERR_UNSAFE_PORT`
+
+### Creating a Vue.js Frontend
+
+To make the project more interactive, we’ll build a Vue.js frontend to interface with the Flask API.
+
+### 1. Set Up a Vue.js Project
+
+If you don’t have Vue installed, you can set up a new project using Vue CLI:
+
+```bash
+npm install -g @vue/cli
+vue create sentiment-app
+```
+
+Navigate into your project folder:
+
+```bash
+cd sentiment-app
+```
+
+### 2. Modify the Vue Component
+
+Open the `src/components/HelloWorld.vue` file and replace its contents with the following code to create the sentiment analysis form. This will now display the confidence score returned by the Flask API.
+
+https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/sentiment-app/src/components/HelloWorld.vue#L1-L58
+
+### 3. Run the Vue.js App
+
+Now, run the Vue app:
+
+```bash
+npm run serve
+```
+
+> You can access the app in your browser at http://localhost:8080. The Vue.js frontend will now display the sentiment prediction and the confidence score.
+
+## Conclusion
+
+In this project, we’ve fine-tuned a pre-trained BERT model using Hugging Face, built a Flask API to serve predictions, and created a Vue.js frontend for user interaction. The Flask API now includes a confidence score for each prediction, which is displayed in the Vue.js frontend. This setup provides a complete end-to-end machine learning pipeline, from training to deployment.
+
+You can further improve this project by adding more styling, deploying it to a cloud platform, or optimizing the inference process.

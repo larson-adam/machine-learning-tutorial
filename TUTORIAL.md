@@ -2,38 +2,6 @@ Certainly! Here’s an updated version of the README.md with more concise explan
 
 
 
-# End-to-End Machine Learning Pipeline with Hugging Face and Web App
-
-This project demonstrates how to fine-tune a pre-trained **BERT** model for sentiment analysis using the Hugging Face library. The tutorial walks you through key machine learning concepts, with annotations explaining important terms as they appear. We will be using the IMDb dataset for training and evaluation.
-
-## Project Overview
-
-We are fine-tuning a **BERT** model, pre-trained by Google, to classify movie reviews from the **IMDb dataset** as positive or negative. After fine-tuning, we will save and deploy the model as a web app for sentiment analysis.
-
-## Installation and Setup
-
-1. **Clone the repository**:
-   ```bash
-   git clone <repository_url>
-
-	2.	Install dependencies:
-
-pip install transformers datasets torch accelerate
-
-
-	3.	Set Up Environment:
-Create a virtual environment (optional but recommended):
-
-python3 -m venv venv
-source venv/bin/activate   # On macOS/Linux
-venv\Scripts\activate      # On Windows
-
-
-	4.	Run the fine-tuning script:
-
-python3 fine_tune_bert.py
-
-
 
 Steps
 
