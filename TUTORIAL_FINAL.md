@@ -54,38 +54,7 @@ Once the model is fine-tuned, we can use it to make predictions on new movie rev
 
 Here’s how you can load the fine-tuned model and make predictions:
 
-```python
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-import torch
-
-# Load the fine-tuned model and tokenizer
-model_path = "./fine-tuned-bert"
-tokenizer = AutoTokenizer.from_pretrained(model_path)
-model = AutoModelForSequenceClassification.from_pretrained(model_path)
-
-# Put the model in evaluation mode
-model.eval()
-
-# Sample text for prediction (you can change this to any review text)
-sample_text = "This movie was average. The acting and the plot was solid."
-
-# Tokenize the text and prepare it for the model
-inputs = tokenizer(sample_text, return_tensors="pt", truncation=True, padding=True, max_length=512)
-
-# Run the model to get predictions
-with torch.no_grad():
-    outputs = model(**inputs)
-    logits = outputs.logits
-
-# Get the predicted class (0 = negative, 1 = positive)
-predicted_class = torch.argmax(logits, dim=1).item()
-
-# Output the result
-if predicted_class == 1:
-    print("Positive review")
-else:
-    print("Negative review")
-```
+https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/run_inference.py
 
 ### 2. Run the Inference Script
 
@@ -100,7 +69,7 @@ Next, we will create a Flask API that accepts movie reviews via HTTP requests an
 
 ### Create a Flask App (app.py)
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/main/app.py#L1-47
+https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/app.py#L1-47
 
 ### Dockerize Flask API
 
@@ -108,7 +77,7 @@ To make it easier to deploy the app, you can package it into a Docker container.
 
 1. Create a Dockerfile
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/main/Dockerfile#L1-L17
+https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/Dockerfile#L1-L17
 
 > The API will run on http://127.0.0.1:5000. You can test the API by sending a POST request with some text to the `/predict` endpoint.
 
@@ -129,7 +98,7 @@ docker run -p 8000:5000 bert-sentiment-app
 
 To make the project more interactive, we’ll build a Vue.js frontend to interface with the Flask API.
 
-1. Set Up a Vue.js Project
+### 1. Set Up a Vue.js Project
 
 If you don’t have Vue installed, you can set up a new project using Vue CLI:
 
@@ -144,13 +113,13 @@ Navigate into your project folder:
 cd sentiment-app
 ```
 
-2. Modify the Vue Component
+### 2. Modify the Vue Component
 
 Open the `src/components/HelloWorld.vue` file and replace its contents with the following code to create the sentiment analysis form. This will now display the confidence score returned by the Flask API.
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/007bd8717282d6bbb800458792bbd23349a3ca37/sentiment-app/src/components/HelloWorld.vue#L1-58
+https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/sentiment-app/src/components/HelloWorld.vue#L1-58
 
-3. Run the Vue.js App
+### 3. Run the Vue.js App
 
 Now, run the Vue app:
 
