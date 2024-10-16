@@ -156,7 +156,7 @@ To make it easier to deploy the app, you can package it into a Docker container.
 
 1. Create a Dockerfile
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/6d7d79951bb2333d21849c3a94a6b397cbc7c5ad/Dockerfile?plain=1
+https://github.com/larson-adam/machine-learning-tutorial/blob/6d7d79951bb2333d21849c3a94a6b397cbc7c5ad/Dockerfile#L1-L17
 
 > The API will run on http://127.0.0.1:5000. You can test the API by sending a POST request with some text to the `/predict` endpoint.
 
@@ -196,66 +196,7 @@ cd sentiment-app
 
 Open the `src/components/HelloWorld.vue` file and replace its contents with the following code to create the sentiment analysis form. This will now display the confidence score returned by the Flask API.
 
-```html
-<template>
-  <div class="sentiment-app">
-    <h1>Movie Review Sentiment Analysis</h1>
-    <textarea v-model="reviewText" placeholder="Enter your movie review here"></textarea>
-    <button @click="analyzeSentiment">Analyze Sentiment</button>
-    <div v-if="prediction">
-      <h2>Prediction: {{ prediction }}</h2>
-      <p>Confidence: {{ confidence }}</p>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      reviewText: '',
-      prediction: null,
-      confidence: null,
-    };
-  },
-  methods: {
-    async analyzeSentiment() {
-      try {
-        const response = await fetch('http://localhost:8000/predict', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ text: this.reviewText }),
-        });
-
-        const data = await response.json();
-        this.prediction = data.prediction;
-        this.confidence = data.confidence;
-      } catch (error) {
-        console.error('Error fetching prediction:', error);
-      }
-    },
-  },
-};
-</script>
-
-<style scoped>
-.sentiment-app {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-}
-textarea {
-  width: 100%;
-  height: 150px;
-  margin-bottom: 10px;
-}
-button {
-  padding: 10px 20px;
-}
-</style>
-```
+https://github.com/larson-adam/machine-learning-tutorial/blob/007bd8717282d6bbb800458792bbd23349a3ca37/sentiment-app/src/components/HelloWorld.vue#L1-100
 
 3. Run the Vue.js App
 
