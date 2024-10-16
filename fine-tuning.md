@@ -32,12 +32,12 @@ Structure of the IMDb Dataset:
 
 Fine-tuning involves taking a pre-trained model (in your case, BERT) and adapting it to your specific task—in this case, sentiment analysis. Here’s the general process:
 
-Pre-trained BERT Model:
+#### Pre-trained BERT Model:
 
 - BERT is a transformer-based model that has been pre-trained on a massive amount of text data (such as Wikipedia or BooksCorpus) using a language modeling objective (e.g., predicting missing words in sentences).
 - This pre-trained model has learned general patterns of the language, such as grammar, word relationships, and context.
 
-Fine-Tuning on a Specific Task:
+#### Fine-Tuning on a Specific Task:
 
 Now, you take this pre-trained BERT model and fine-tune it on your labeled sentiment analysis dataset. Fine-tuning means adapting the general language understanding of BERT to classify movie reviews into “positive” or “negative” sentiments.
 
@@ -45,10 +45,12 @@ Now, you take this pre-trained BERT model and fine-tune it on your labeled senti
 
 #### 1.	Input Processing (Tokenization):
 The text reviews are first tokenized using the BERT tokenizer. Tokenization converts the text into a sequence of tokens (words or subwords) that the BERT model can understand. The tokenizer also adds special tokens (like [CLS] for classification and [SEP] for separating sentences).
+
 Example:
 
+```python
 inputs = tokenizer("I loved the movie!", return_tensors="pt", truncation=True, padding=True, max_length=512)
-
+```
 
 #### 2.	Model Architecture:
 You use the BERT architecture, but add a classification head on top of it (usually a simple fully connected layer). This head will map the final representation of the [CLS] token (which represents the entire input sequence) to the two sentiment classes (positive or negative).
