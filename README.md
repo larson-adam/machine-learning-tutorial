@@ -26,14 +26,14 @@ It’s recommended to use a virtual environment for Python dependencies:
 
 **MacOS**
 ```bash
-python3 -m venv venv
-source venv/bin/activate   # On macOS/Linux
+python3.12 -m venv .venv
+source .venv/bin/activate
 ```
 
 **Windows**
 ```bash
-python3 -m venv venv
-venv\Scripts\activate
+python3.12 -m venv .venv
+.venv\Scripts\activate
 ```
 
 ### 3. Install Python Dependencies
@@ -51,6 +51,9 @@ Execute the fine_tune_bert.py script to fine-tune the BERT model on the IMDb dat
 ```bash
 python3 fine_tune_bert.py
 ```
+
+While this runs, you can understand more about the [input parameters here](https://github.com/larson-adam/machine-learning-tutorial/blob/main/dictionary.md#trainingargument-parameters-explained) and the [output values here](https://github.com/larson-adam/machine-learning-tutorial/blob/main/dictionary.md#trainingargument-parameters-explained)
+
 > This will generate files like pytorch_model.bin, config.json, and tokenizer files in the `./fine-tuned-bert/` directory.
 
 ## Using the Fine-Tuned Model for Inference
@@ -70,38 +73,60 @@ python3 run_inference.py
 ```
 > This will output whether the movie review is classified as positive or negative.
 
-## Create Flask API
+## Creating a Dockerized Flask API
 
 Next, we will create a Flask API that accepts movie reviews via HTTP requests and returns predictions.
 
 ### Create a Flask App (app.py)
 
+Create a file called `app.py` and copy the contents below to it.
+
 https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/app.py#L1-L47
 
-### Dockerize Flask API
+### Dockerizing the Flask API
 
 To make it easier to deploy the app, you can package it into a Docker container.
 
-1. Create a Dockerfile
+#### 1. Create a Dockerfile
 
 https://github.com/larson-adam/machine-learning-tutorial/blob/18ff69df47d8bbdef586cf4568c8c40324e3a624/Dockerfile#L1-L17
 
 > The API will run on http://127.0.0.1:5000. You can test the API by sending a POST request with some text to the `/predict` endpoint.
 
-2. Build the Dockerimage:
+#### 2. Build the Dockerimage:
 
 ```bash
 docker build -t bert-sentiment-app .
 ```
 
-3. Run the Docker Container with a Safe Port
+#### 3. Run the Docker Container with a Safe Port
 
 ```bash
 docker run -p 8000:5000 bert-sentiment-app
 ```
 > You can try using `5000:5000`, but I had to map port 8000 on my local machine to port 5000 inside the Docker container to bypass an error: `ERR_UNSAFE_PORT`
 
-### Creating a Vue.js Frontend
+#### 4. Testing the Flask API
+
+Before connecting the Vue.js frontend, lets make sure the Flask API endpoint is working in the docker container using `curl`. Try this command:
+
+```bash
+curl -X POST http://127.0.0.1:8000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"text": "I really enjoyed this movie!"}'
+```
+
+You should get a response that looks like:
+
+```JSON
+{
+  "confidence": 0.9992263317108154,
+  "prediction": "positive",
+  "text": "I really enjoyed this movie!"
+}
+```
+
+## Creating a Vue.js Frontend
 
 To make the project more interactive, we’ll build a Vue.js frontend to interface with the Flask API.
 
@@ -135,6 +160,10 @@ npm run serve
 ```
 
 > You can access the app in your browser at http://localhost:8080. The Vue.js frontend will now display the sentiment prediction and the confidence score.
+
+The final result should look something like this:
+
+https://github.com/larson-adam/machine-learning-tutorial/blob/f4e682b78d48b67ecf4580255c29c032653321d3/Movie%20Review%20Screenshot.png
 
 ## Conclusion
 
