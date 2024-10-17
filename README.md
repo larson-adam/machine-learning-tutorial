@@ -60,11 +60,11 @@ While this runs, you can understand more about the [input parameters here](https
 
 Once the model is fine-tuned, we can use it to make predictions on new movie reviews.
 
-### 1. Create a New Python File (run_inference.py)
+### 1. Understanding the Fine-Tuning Script
 
-Here’s how you can load the fine-tuned model and make predictions:
+You can use [`run_inference.py`](https://github.com/larson-adam/machine-learning-tutorial/blob/main/run_inference.py) to load the fine-tuned model and make predictions.
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/7b2b5b8f1cf4d58997b843583b4748c0488f2ac1/run_inference.py#L1-L30
+> I added in-line comments to help understand what is happening in this file. 
 
 ### 2. Run the Inference Script
 
@@ -77,21 +77,20 @@ python3 run_inference.py
 
 Next, we will create a Flask API that accepts movie reviews via HTTP requests and returns predictions.
 
-### Create a Flask App (app.py)
+### The Flask App
 
-Create a file called `app.py` and copy the contents below to it.
+The Flask App is already created in [`app.py`](https://github.com/larson-adam/machine-learning-tutorial/blob/main/app.py). 
+This will serve up an API endpoint that we can hit. You can serve it locally, but we will Dockerize the Flask App in the next steps.
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/7b2b5b8f1cf4d58997b843583b4748c0488f2ac1/app.py#L1-L47
+> Again, there are in-line comments to help understand what is happening.
 
 ### Dockerizing the Flask API
 
 To make it easier to deploy the app, you can package it into a Docker container.
 
-#### 1. Create a Dockerfile
+#### 1. Understanding Dockerfile
 
-https://github.com/larson-adam/machine-learning-tutorial/blob/7b2b5b8f1cf4d58997b843583b4748c0488f2ac1/Dockerfile#L1-L17
-
-> The API will run on http://127.0.0.1:5000. You can test the API by sending a POST request with some text to the `/predict` endpoint.
+I have alrady the [Dockerfile](https://github.com/larson-adam/machine-learning-tutorial/blob/main/Dockerfile)
 
 #### 2. Build the Dockerimage:
 
@@ -108,7 +107,7 @@ docker run -p 8000:5000 bert-sentiment-app
 
 #### 4. Testing the Flask API
 
-Before connecting the Vue.js frontend, lets make sure the Flask API endpoint is working in the docker container using `curl`. Try this command:
+Before connecting the Vue.js frontend, lets make sure the Flask API endpoint is working in the docker container by sending a POST request to the `/predict` endpoint with `curl`. Try this command:
 
 ```bash
 curl -X POST http://127.0.0.1:8000/predict \
@@ -136,18 +135,18 @@ If you don’t have Vue installed, you can set up a new project using Vue CLI:
 
 ```bash
 npm install -g @vue/cli
-vue create sentiment-app
+vue create ml-sentiment-app
 ```
 
 Navigate into your project folder:
 
 ```bash
-cd sentiment-app
+cd ml-sentiment-app
 ```
 
 ### 2. Modify the Vue Component
 
-Open the `src/components/HelloWorld.vue` file and replace its contents with the following code to create the sentiment analysis form. This will now display the confidence score returned by the Flask API.
+Open the `src/components/HelloWorld.vue` file and replace its contents with the following code to create the sentiment analysis form. This will display the resonse returned by the Flask API.
 
 https://github.com/larson-adam/machine-learning-tutorial/blob/7b2b5b8f1cf4d58997b843583b4748c0488f2ac1/sentiment-app/src/components/HelloWorld.vue#L1-L58
 
